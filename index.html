@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hykaika Anime Style Website</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Sacramento&display=swap');
+
+  /* Grundstyle */
+  body {
+    margin: 0; padding: 0;
+    background: linear-gradient(to bottom, #f9e3e3, #ffe4e1);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    color: #333;
+  }
+
+  /* Buttons oben links Container */
+  #navButtons {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 20;
+  }
+
+  /* Style der Buttons */
+  #navButtons button {
+    background: linear-gradient(145deg, #ff7fa1, #f74e76);
+    border-radius: 18px;
+    box-shadow: 0 8px 18px #f74e76dd;
+    color: white;
+    padding: 10px 18px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    user-select: none;
+    transition: all 0.3s ease;
+    width: 140px;
+    text-align: center;
+  }
+  #navButtons button:hover {
+    background: linear-gradient(145deg, #ffa1ba, #ff5c8d);
+    box-shadow: 0 0 25px #ff5c8d, 0 0 45px #ff5c8d;
+    transform: translateY(-5px) scale(1.05);
+  }
+
+  /* Container Startanimation */
+  #startAnimation {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: #fbe4e4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+    overflow: hidden;
+    user-select: none;
+    padding: 20px;
+    pointer-events: none;
+  }
+
+  /* Profilbild Startanimation */
+  #startAnimation img.profile {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 4px solid #d85c7a;
+    box-shadow: 0 0 16px #ff9fbfcc;
+    margin-bottom: 25px;
+    opacity: 0;
+    animation: fadeScalePulse 3.5s forwards 0.5s;
+    transform-origin: center center;
+  }
+
+  /* Begrüßung Text */
+  #startAnimation h1 {
+    font-family: 'Sacramento', cursive;
+    font-size: 3.6rem;
+    color: #d85c7a;
+    text-shadow: 0 0 15px #ff9fbfbb;
+    margin: 0 0 15px 0;
+    opacity: 0;
+    animation: fadeInUp 3s forwards 1.8s;
+    text-align: center;
+    max-width: 90vw;
+    line-height: 1.15;
+  }
+
+  #startAnimation p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: #c94a70;
+    opacity: 0;
+    animation: fadeInUp 3s forwards 3.8s;
+    text-align: center;
+    max-width: 85vw;
+    margin: 0;
+  }
+
+  /* Sakura Blüten - natürliche Bewegungen */
+  .sakura {
+    position: absolute;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Sakura_icon.svg/120px-Sakura_icon.svg.png') no-repeat center/contain;
+    opacity: 0.85;
+    pointer-events: none;
+    filter: drop-shadow(0 0 3px #d85c7aaa);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+
+  /* Verschiedene Animationen für Blüten */
+  .fallDown {
+    animation-name: fallDown;
+  }
+  .sway {
+    animation-name: sway;
+  }
+
+  @keyframes fallDown {
+    0% {
+      transform: translateY(-50px) rotate(0deg);
+      opacity: 0.9;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  @keyframes sway {
+    0%, 100% {
+      transform: translateX(0) rotate(0deg);
+    }
+    50% {
+      transform: translateX(15px) rotate(10deg);
+    }
+  }
+
+  /* Fade in up Animation */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Fade & Scale & Pulse in für Profilbild */
+  @keyframes fadeScalePulse {
+    0% {
+      opacity: 0;
+      transform: scale(0.75);
+      box-shadow: 0 0 0 #ff9fbf00;
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #ff9fbfff;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 0 16px #ff9fbfcc;
+    }
+  }
+
+  /* Container für Social Media Buttons */
+  #socials {
+    display: none;
+    margin: 100px auto 40px;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  #socials h2 {
+    font-family: 'Sacramento', cursive;
+    font-size: 2.2rem;
+    color: #d85c7a;
+    margin-bottom: 35px;
+    text-shadow: 0 0 8px #ff9fbfbb;
+  }
+
+  /* Social Buttons Container vertikal */
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    align-items: center;
+  }
+
+  /* Button Styles mit Icon links */
+  .btn {
+    background: linear-gradient(145deg, #ff7fa1, #f74e76);
+    border-radius: 18px;
+    box-shadow: 0 8px 18px #f74e76dd;
+    color: white;
+    padding: 14px 25px 14px 60px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 320px;
+    text-align: left;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Icon in Button */
+  .btn img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2.8px solid white;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 3px #fff5);
+    transition: transform 0.3s ease;
+  }
+
+  /* Hover Animation - Anime Style */
+  .btn:hover {
+    background: linear-gradient(145deg, #ffa1ba, #ff5c8d);
+    box-shadow: 0 0 25px #ff5c8d, 0 0 45px #ff5c8d;
+    transform: translateY(-8px) scale(1.07);
+  }
+  .btn:hover img {
+    transform: scale(1.25) rotate(10deg);
+  }
+
+  /* Anime petals on hover */
+  .btn:hover::after {
+    content: '🌸';
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 1.6rem;
+    animation: petalFloat 1.2s ease forwards;
+    opacity: 1;
+  }
+
+  @keyframes petalFloat {
+    0% {
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-45px) rotate(420deg);
+    }
+  }
+
+  /* Biografie - schöner, luftiger Stil */
+  #bio {
+    max-width: 720px;
+    margin: 40px auto 80px;
+    font-size: 1.25rem;
+    color: #6a4a59;
+    line-height: 1.8;
+    text-align: center;
+    padding: 25px 30px;
+    font-style: italic;
+    background: linear-gradient(135deg, #ffe6f0, #ffccde);
+    border-radius: 25px;
+    box-shadow: 0 0 30px #f4a1b7cc inset;
+    border: 1.5px solid #f78ba9;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    user-select: none;
+    transition: background 0.5s ease;
+  }
+  #bio:hover {
+    background: linear-gradient(135deg, #ffcedb, #ffacc4);
+    box-shadow: 0 0 45px #f778a6cc inset;
+  }
+  #bio h3 {
+    font-family: 'Sacramento', cursive;
+    font-size: 2.4rem;
+    color: #d85c7a;
+    margin-bottom: 18px;
+    text-shadow: 0 0 10px #ff9fbfdd;
+  }
+  #bio p {
+    margin: 0;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    margin: 50px 0 30px 0;
+    color: #d85c7a;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    user-select: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .btn {
+      max-width: 100%;
+      padding-left: 20px;
+    }
+    #bio {
+      font-size: 1.1rem;
+      margin: 30px 20px 60px;
+      padding: 18px 22px;
+    }
+    #startAnimation h1 {
+      font-size: 2.8rem;
+    }
+    #startAnimation p {
+      font-size: 1.3rem;
+    }
+    #navButtons button {
+      width: 120px;
+      font-size: 0.9rem;
+      padding: 8px 14px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Neue Buttons oben links -->
+<div id="navButtons">
+  <button id="scrollTopBtn" title="Nach oben scrollen">⬆ Nach oben</button>
+  <button id="scrollBottomBtn" title="Nach unten scrollen">⬇ Nach unten</button>
+  <button id="showStartAnimBtn" title="Startanimation erneut anzeigen">🌸 Startanimation</button>
+</div>
+
+<div id="startAnimation">
+  <img class="profile" src="Shinoa Hiiragi.jpeg" alt="Profilbild Hykaika" />
+  <h1>Willkommen in der Welt von Hykaika! 🌸</h1>
+  <p>Erlebe mit mir magische Abenteuer voller Anime, Gaming und grenzenloser Fantasie.</p>
+</div>
+
+<div id="socials">
+  <h2>Folge uns auf Social Media!</h2>
+  <div class="buttons">
+    <button class="btn" onclick="window.open('https://www.youtube.com/@hykaika','_blank')">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" /> YouTube - hykaika
+    </button>
+    <button class="btn" onclick="window.open('https://www.instagram.com/hykaika','_blank')">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" /> Instagram - hykaika
+    </button>
+    <button class="btn" onclick="window.open('https://www.tiktok.com/@hykaika','_blank')">
+      <img src="https://cdn-icons-png.flaticon.com/512/3046/3046122.png" alt="TikTok" /> TikTok - hykaika
+    </button>
+    <button class="btn" onclick="window.open('https://www.twitch.tv/hykaika','_blank')">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111615.png" alt="Twitch" /> Twitch - hykaika
+    </button>
+    <button class="btn" onclick="window.open('https://github.com/hykaika','_blank')">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" /> GitHub - hykaika
+    </button>
+    <button class="btn" onclick="window.open('https://twitter.com/Teamhykaika','_blank')">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="X Twitter" /> X (Twitter) - Teamhykaika
+    </button>
+  </div>
+
+  <section id="bio">
+    <h3>Über mich</h3>
+    <p>Hallo, ich bin Hykaika – dein Guide durch faszinierende Welten voller Anime, Magie und Gaming. Mit dieser Website lade ich dich ein, gemeinsam unvergessliche Abenteuer zu erleben und in spannende Geschichten einzutauchen. Lass uns zusammen Teil einer lebendigen Community werden und die grenzenlose Fantasie feiern!</p>
+  </section>
+</div>
+
+<footer>
+  © 2025 Hykaika
+</footer>
+
+<script>
+  const startDiv = document.getElementById('startAnimation');
+  const socialsDiv = document.getElementById('socials');
+  const petalsCount = 40;
+
+  function createPetals() {
+    for(let i = 0; i < petalsCount; i++) {
+      const petal = document.createElement('div');
+      petal.classList.add('sakura');
+
+      petal.style.left = Math.random() * 100 + 'vw';
+      const size = 20 + Math.random() * 20;
+      petal.style.width = size + 'px';
+      petal.style.height = size + 'px';
+
+      const duration = 8 + Math.random() * 6;
+      petal.style.animationDuration = duration + 's';
+      petal.style.animationDelay = Math.random() * 6 + 's';
+
+      if (Math.random() > 0.5) {
+        petal.classList.add('fallDown');
+      } else {
+        petal.classList.add('sway');
+        petal.style.top = (Math.random() * 100) + 'vh';
+        petal.style.animationDuration = (4 + Math.random() * 4) + 's';
+        petal.style.animationDelay = Math.random() * 6 + 's';
+      }
+
+      startDiv.appendChild(petal);
+    }
+  }
+
+  function clearPetals() {
+    const petals = startDiv.querySelectorAll('.sakura');
+    petals.forEach(p => p.remove());
+  }
+
+  // Starte Startanimation mit Petalen und Text
+  function startAnimation() {
+    socialsDiv.style.display = 'none';
+    startDiv.style.display = 'flex';
+    clearPetals();
+    createPetals();
+
+    // Automatisch nach 7,5s Startanimation ausblenden und Socials anzeigen
+    setTimeout(() => {
+      startDiv.style.display = 'none';
+      socialsDiv.style.display = 'block';
+      clearPetals();
+    }, 7500);
+  }
+
+  // Startanimation beim Laden
+  window.onload = () => {
+    startAnimation();
+  };
+
+  // Buttons Funktionalität
+  document.getElementById('scrollTopBtn').addEventListener('click', () => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+  document.getElementById('scrollBottomBtn').addEventListener('click', () => {
+    window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+  });
+  document.getElementById('showStartAnimBtn').addEventListener('click', () => {
+    startAnimation();
+  });
+</script>
+
+</body>
+</html>
