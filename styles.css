@@ -49,7 +49,7 @@ header {
     border-radius: 50%;
     object-fit: cover;
     border: 5px solid var(--primary);
-    box-shadow: 0 0 20px rgba(255, 107, 206, 0.3);
+    box-shadow: 0 0 20px rgba(138, 52, 53, 0.3);
     margin: 0 auto 20px;
     overflow: hidden;
 }
